@@ -154,26 +154,26 @@ class SinglyLinkedList {
   * @returns {boolean} Indicates if a node was removed or not.
 */
 // only removes first value found
-    removeVal(val) {
+    removeVal(val, removeAllToggle = false) {
+        let wasValueRemoved = false;
         if ( this.isEmpty() ) {
-            return false;
+            return wasValueRemoved;
         }
-        if( this.head.data == val ){
+        while( this.head.data == val && (removeAllToggle || ! wasValueRemoved)){
             this.head = this.head.next;
-            return true;
+            wasValueRemoved = true;
         }
         let runner = this.head;
-        while ( runner.next && runner.next.data != val ){
-            runner = runner.next;
+        while ( runner.next && (removeAllToggle || ! wasValueRemoved) ){
+            if ( runner.next.data === val ){
+                runner.next = runner.next.next;
+                wasValueRemoved = true;
+            } else {
+                runner = runner.next;
+            }
         }
-        if ( runner.next && runner.next.data == val ){
-            runner.next = runner.next.next;
-            return true;
-        }
-        return false;
+        return wasValueRemoved;
     }
-
-
 }
 
 let list1 = new SinglyLinkedList();
@@ -192,8 +192,10 @@ list1.removeFromFront();
 list1.removeFromFront();
 list1.insertAtFront("grumpy")
 list1.insertAtFront("bumpy")
+list1.insertAtFront("bumpy")
 list1.insertAtFront("mklumpy")
 list1.insertAtFront("dumpy")
+list1.insertAtFront("bumpy")
 
 console.log(list1.toArr());
 
@@ -202,7 +204,7 @@ console.log(list1.removeFromBack());
 list1.display();
 console.log("---");
 console.log("---");
-console.log(list1.removeVal("dumpyd"));
+console.log(list1.removeVal("bumpy"));
 console.log("---");
 console.log("---");
 
