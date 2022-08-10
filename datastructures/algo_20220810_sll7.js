@@ -90,7 +90,7 @@ class SinglyLinkedList {
             }
             runner.next = newNode;
         }
-        return;
+        return this;
     }
 
     seedFromArr( vals ) {
@@ -159,15 +159,6 @@ class SinglyLinkedList {
         return wasValueRemoved;
     }
     
-/**
- * Inserts a new node before a node that has the given value as its data.
- * - Time: O(?).
- * - Space: O(?).
- * @param {any} newVal The value to use for the new node that is being added.
- * @param {any} targetVal The value to use to find the node that the newVal
- *    should be inserted in front of.
- * @returns {boolean} To indicate whether the node was pre-pended or not.
- */
     prepend(newVal, targetVal) {
         if( this.isEmpty() ){
             return false;
@@ -190,17 +181,6 @@ class SinglyLinkedList {
         return false;
     }
 
-
-
-
-    
-/**
- * Finds the node with the smallest data and moves that node to the front of
- * this list.
- * - Time: O(?).
- * - Space: O(?).
- * @returns {SinglyLinkedList} This list.
- */
     moveMinToFront() {
         if( this.isEmpty() || this.head.next == null){
             return this;
@@ -230,6 +210,88 @@ class SinglyLinkedList {
         return this;
     }
 
+/**
+ * Concatenates the nodes of a given list onto the back of this list.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {SinglyLinkedList} addList An instance of a different list whose
+ *    whose nodes will be added to the back of this list.
+ * @returns {SinglyLinkedList} This list with the added nodes.
+ */
+    concat( addList ) {
+        if( addList.isEmpty() ){
+            return this;
+        }
+        if( this.isEmpty() ){
+            this.head = addList.head;
+            return this;
+        }
+        let runner = this.head;
+        while( runner.next ){
+            runner = runner.next;
+        }
+        runner.next = addList.head;
+        return this;
+    }
+
+/**
+ * Splits this list into two lists where the 2nd list starts with the node
+ * that has the given value.
+ * splitOnVal(5) for the list (1=>3=>5=>2=>4) will change list to (1=>3)
+ * and the return value will be a new list containing (5=>2=>4)
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {any} val The value in the node that the list should be split on.
+ * @returns {SinglyLinkedList} The split list containing the nodes that are
+ *    no longer in this list.
+ */
+    splitOnVal( val ){
+        if( this.isEmpty() ){
+            return null;
+        }
+        if( this.head.data === val){
+            let returnList = new SinglyLinkedList();
+            returnList.head = this.head;
+            this.head = null;
+            return returnList;
+        }
+        let runner = this.head;
+        while( runner.next ){
+            if( runner.next.data === val){
+                let returnList = new SinglyLinkedList();
+                returnList.head = runner.next;
+                runner.next = null;
+                return returnList;
+            }
+            runner = runner.next;
+        }
+        return null;
+    }
+
+/**
+ * Recursively finds the maximum integer data of the nodes in this list.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {ListNode} runner The start or current node during traversal, or null
+ *    when the end of the list is reached.
+ * @param {ListNode} maxNode Keeps track of the node that contains the current
+ *    max integer as it's data.
+ * @returns {?number} The max int or null if none.
+ */
+    recursiveMax(runner = this.head, maxNode = this.head){
+        if( this.isEmpty() ){
+            return null;
+        }
+        if( ! runner ){
+            return maxNode.data;
+        }
+        if( runner.data > maxNode.data ){
+            return this.recursiveMax( runner.next, runner );
+        }
+        return this.recursiveMax( runner.next, maxNode );
+    }
+
+
 }
 
 
@@ -242,18 +304,21 @@ list1.insertAtFront(24);
 list1.insertAtFront(5);
 list1.insertAtFront(2);
 
+let list2 = new SinglyLinkedList();
+list2.insertAtFront(123);
+list2.insertAtFront(24);
+list2.insertAtFront(4);
+list2.insertAtFront(5);
 
 list1.display();
-console.log("---")
-
-list1.moveMinToFront();
-console.log("---")
-list1.display();
-list1.moveMinToFront();
-console.log("---")
+console.log("---");
+list2.display();
+list1.concat(list2);
 list1.display();
 
-list1.prepend(17,89);
-list1.prepend(12,89);
-console.log("---")
+let list3 = list1.splitOnVal(5);
+console.log("--new list below--")
+list3.display();
+
+console.log("--old list below--");
 list1.display();
