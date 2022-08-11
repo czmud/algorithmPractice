@@ -118,6 +118,11 @@ class BinarySearchTree {
     }
 
     display(){
+        if( this.isEmpty() ){
+            console.log("Your Binary Search Tree is empty!");
+            return null; 
+        }
+        
         let rowsToDisplay = this.generateDisplayByRow();
 
         for (let row of Object.values(rowsToDisplay)) {
@@ -129,13 +134,23 @@ class BinarySearchTree {
 
 
 let bsTree = new BinarySearchTree();
+displayMemo = bsTree.display();
 bsTree.insert(5);
+displayMemo = bsTree.display();
 bsTree.insert(20);
 bsTree.insert(27);
 bsTree.insert(55);
 bsTree.insert(0);
-bsTree.insert(3);
-
+bsTree.insert(-60);
+bsTree.insert(-23);
+bsTree.insert(12);
+bsTree.insert(125);
+bsTree.insert(74);
+bsTree.insert(72);
+bsTree.insert(76);
+bsTree.insert(80);
+bsTree.insert(-10);
+bsTree.insert(17);
 
 
 
