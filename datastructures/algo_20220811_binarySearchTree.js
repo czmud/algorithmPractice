@@ -60,41 +60,27 @@ class BinarySearchTree {
     }
 
 
-    generateDisplayByRow( node = this.root, memo = {}, layer = 1, maxIndent = this.determineStartIndent(), height = this.determineHeight() ){
+    generateDisplayByRow( node = this.root, memo = {}, layer = 1, height = this.determineHeight()+2, currentIndent = this.determineStartIndent()*height*2, previousIndent = 0 ){
         if( !(layer in memo )) {
-            memo[layer] = {
-                "println": "",
-                "rowNodeCount": maxIndent - layer + 1};
-            for( let i = 0; i<maxIndent; i++){
-                memo[layer]["println"] += " ".repeat(height);
-            }
-            memo[layer]["println"] += node.data;
-            console.log("layer "+layer+": value: "+node.data);
+            memo[layer] = "";
+            memo[layer] += " ".repeat(currentIndent);
+            memo[layer] += node.data;
         }
         else {
-            if( node.data < this.root.data ){
-                for( let i = 0; i<maxIndent-memo[layer]["rowNodeCount"]; i++ ){
-                    memo[layer]["println"] += " ".repeat(height - layer);
-                }
-            } else {
-                for( let i = 0; i<maxIndent-memo[layer]["rowNodeCount"]; i++ ){
-                    memo[layer]["println"] += " ".repeat(height - layer + 1);
-                }
-            }
-            memo[layer]["println"] += node.data;
-            console.log("layer "+layer+": value: "+node.data);
-            memo[layer]["rowNodeCount"] = maxIndent - height + layer;
+            console.log("node data: "+node.data);
+            console.log(0 < currentIndent - memo[layer].length ? currentIndent - memo[layer].length : 1);
+            memo[layer] += " ".repeat( 0 < currentIndent - memo[layer].length ? currentIndent - memo[layer].length : 1 );
+            memo[layer] += node.data;
         }
-        let leftNextIndent = maxIndent;
-        let rightNextIndent = maxIndent;
+        let leftNextIndent = currentIndent;
+        let rightNextIndent = currentIndent;
         if( node.left ) {
-            // leftNextIndent -= height + layer 
-            leftNextIndent--;
-            this.generateDisplayByRow( node.left, memo, layer + 1, leftNextIndent );
+            leftNextIndent -= (height - layer)*2 - (height/2);
+            this.generateDisplayByRow( node.left, memo, layer + 1, height, leftNextIndent, currentIndent );
         }
         if( node.right ) {
-            rightNextIndent++;
-            this.generateDisplayByRow( node.right, memo, layer + 1, rightNextIndent );
+            rightNextIndent += (height - layer)*2 - (height/2);
+            this.generateDisplayByRow( node.right, memo, layer + 1, height, rightNextIndent, currentIndent );
         }
         return memo;
     }
@@ -137,7 +123,7 @@ class BinarySearchTree {
         let rowsToDisplay = this.generateDisplayByRow();
 
         for (let row of Object.values(rowsToDisplay)) {
-            console.log(row["println"]);
+            console.log(row);
         }
         
     }
@@ -149,15 +135,21 @@ bsTree.insert(5);
 bsTree.insert(20);
 bsTree.insert(27);
 bsTree.insert(55);
-bsTree.insert(4);
-bsTree.insert(3);
 bsTree.insert(0);
+bsTree.insert(3);
+bsTree.insert(4);
 bsTree.insert(12);
 bsTree.insert(69);
 bsTree.insert(20);
 bsTree.insert(109);
 bsTree.insert(6);
 bsTree.insert(58);
+bsTree.insert(-45);
+bsTree.insert(-37);
+bsTree.insert(-10);
+bsTree.insert(-40);
+bsTree.insert(43);
+bsTree.insert(23);
 
 
 
