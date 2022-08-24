@@ -19,7 +19,7 @@ class Queue {
      * @returns {boolean} Indicates if the list is empty.
      */
     isEmpty() {
-        return !(!!this.head);
+        return !this.size;
     }
     
     /**
@@ -101,7 +101,7 @@ class Queue {
     * @param {Array<any>} vals
     */
     seed(vals) { 
-        for(let i = 0; i < vals.size; i++ ){
+        for(let i = 0; i < vals.length; i++ ){
             this.enqueue(vals[i]);
         }
     }
@@ -134,6 +134,7 @@ console.log(queue1.isEmpty());
 queue1.enqueue(2);
 queue1.enqueue(3);
 queue1.enqueue(4);
+queue1.display();
 queue1.seed([8,12,45, 67, 89]);
 console.log(queue1);
 queue1.display();
