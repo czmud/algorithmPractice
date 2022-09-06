@@ -58,8 +58,3 @@ function diagonalDifference(sqrMatrix) {
 console.log(diagonalDifference(squareMatrix1))
 console.log(diagonalDifference(squareMatrix2))
 
-/*****************************************************************************/
-
-function mapVersion(sqrMatrix){
-    sqrMatrix.map()
-}
