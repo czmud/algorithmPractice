@@ -52,7 +52,7 @@ class Queue {
     * @returns {any} The removed item.
     */
     dequeue() {
-        if(this.isEmpty){
+        if(this.isEmpty()){
             return null;
         }
 
@@ -127,14 +127,4 @@ class Queue {
     }
 }
 
-let queue1 = new Queue();
-console.log(queue1.isEmpty());
-queue1.enqueue(1);
-console.log(queue1.isEmpty());
-queue1.enqueue(2);
-queue1.enqueue(3);
-queue1.enqueue(4);
-queue1.display();
-queue1.seed([8,12,45, 67, 89]);
-console.log(queue1);
-queue1.display();
+export default Queue;
