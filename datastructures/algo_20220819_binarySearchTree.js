@@ -1,13 +1,13 @@
 class BSTNode {
     constructor( data ){
         this.data = data;
-        this.count = 1;
+        // this.count = 1;
         this.left = null;
         this.right = null;
     }
 }
 
-class BinarySearchTree {
+export class BinarySearchTree {
     constructor() {
         this.root = null;
     }
@@ -27,10 +27,10 @@ class BinarySearchTree {
         }
         let runner = this.root;
         while( runner ) {
-            if( newVal === runner.data ){
-                runner.count++;
-                return this;
-            }
+            // if( newVal === runner.data ){
+            //     runner.count++;
+            //     return this;
+            // }
             if ( newVal > runner.data ){
                 if( runner.right ){
                     runner = runner.right;
@@ -485,7 +485,7 @@ class BinarySearchTree {
 
 
 
-let bsTree = new BinarySearchTree();
+// let bsTree = new BinarySearchTree();
 
 
 // bsTree.insertRecursive(5);
@@ -507,14 +507,14 @@ let bsTree = new BinarySearchTree();
 // console.log(bsTree.convertToDescendingArray());
 
 
-let bsTree2 = new BinarySearchTree();
+// let bsTree2 = new BinarySearchTree();
 
 
 //bsTree2.arrToBinaryTree([ "ann", "bill", "jill", "phil", "barry", "alfredo" ]);
-bsTree2.arrToBinaryTree([1, -2, 10, 8 , 55, 67, 45, 89, 105, -20, -27]);
-bsTree2.display();
-console.log(bsTree2.removeVal(-899));
-bsTree2.display();
+// bsTree2.arrToBinaryTree([1, -2, 10, 8 , 55, 67, 45, 89, 105, -20, -27]);
+// bsTree2.display();
+// console.log(bsTree2.removeVal(-899));
+// bsTree2.display();
 // console.log(bsTree2.toArrLevelOrder());
 
 // console.log(bsTree2.toArrInOrder());
